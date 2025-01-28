@@ -1,7 +1,7 @@
 # How to run the scripts?
 
 
-Step 1: Download and install DDEC from https://sourceforge.net/projects/ddec/files/
+Step 1: Download and install DDEC from https://sourceforge.net/projects/ddec/files/  
 Step 2: Create a directory in which there are POTCAR, CHGCAR, AECCAR0, AECCAR2 files obtained from DFT, let's name this directory as "Charge".  
 Step 3: Copy the executable bash that is DDEC generated from Fortran to the Charge directory.  
 Step 4: Place "job_control.txt" in Charge directory.  
