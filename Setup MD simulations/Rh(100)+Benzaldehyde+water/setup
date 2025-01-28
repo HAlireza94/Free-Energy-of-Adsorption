@@ -1,0 +1,82 @@
+#!/bin/bash
+
+#!/bin/bash
+
+# Define surface variable
+surface="Rh100"
+element="Rh"
+excluded_volume=0.244 #nm
+h2o_num=40
+LZ=4 #nm desired length in z axis
+
+python ./extracting-data.py > data
+python ./xyz-generator.py > "$surface.xyz"
+
+if [[ -s data ]]; then
+    # Extract boxSize line
+    bx_line=$(grep "boxSize" data | tail -n 1 | tr -d '\r')
+
+    if [[ -z "$bx_line" ]]; then
+        echo "boxSize line not found in data."
+        exit 1
+    fi
+
+    read -r _ bx by bz <<< "$bx_line"
+
+else
+    echo "Data file is empty or missing."
+    exit 1
+fi
+
+
+Lx=$(echo "scale=6; $bx/10" | bc)
+Ly=$(echo "scale=6; $by/10" | bc)
+Lz=$(echo "scale=6; $bz/10" | bc)
+
+obabel -ixyz $surface.xyz -o pdb -O $surface.pdb
+gmx_mpi editconf -f $surface.pdb -o sheet.gro -box $Lx $Ly $Lz -center $(echo "scale=6; $Lx / 2" | bc) $(echo "scale=6; $Ly / 2" | bc) $(echo "scale=6; $Lz / 2" | bc)
+
+thickness=$(python ./thickness.py)
+echo "Thickness of the sheet is = $thickness"
+
+gmx_mpi editconf -f $surface.pdb -o st1.pdb -box $Lx $Ly $LZ -center $(echo "scale=6; $Lx / 2" | bc) $(echo "scale=6; $Ly / 2" | bc) $(echo "scale=6; $(echo "scale=6; $thickness / 2" | bc) + $excluded_volume" | bc)
+
+rho=$(echo "scale=6; 997 * 0.1 * 6.02214076 / 18.01528" | bc)
+denominator=$(echo "scale=6; $Lx * $Ly * $rho" | bc)
+Lz_water=$(echo "scale=6; $h2o_num / $denominator" | bc) # nm
+
+rm *.inp
+
+echo "tolerance 2.0" >> box.inp
+echo "filetype pdb" >> box.inp
+echo "output box1.pdb" >> box.inp
+echo "structure spc.pdb" >> box.inp
+echo "  number $h2o_num" >> box.inp
+echo "  inside box 0 0 0 $(echo "scale=6; $Lx * 10" | bc) $(echo "scale=6; $Ly * 10" | bc) $(echo "scale=6; $Lz_water * 10" | bc) " >> box.inp
+echo "end structure" >> box.inp
+
+
+lzz=$(echo "scale=6; $thickness + $(echo "scale=6; 2 * $excluded_volume" | bc) + $(echo "scale=6; $Lz_water / 2" | bc)" | bc)
+
+packmol < box.inp
+gmx_mpi editconf -f box1.pdb -o water.pdb -box $Lx $Ly $LZ -center  $(echo "scale=6; $Lx / 2" | bc) $(echo "scale=6; $Ly / 2" | bc) $lzz
+
+cat st1.pdb water.pdb > final3.pdb
+vim final3.pdb
+
+gmx_mpi editconf -f final3.pdb -o conf.gro
+gmx_mpi genconf -f conf.gro -o conf.gro -renumber
+
+
+rm st*.pdb final*.pdb water.pdb box.pdb \#* 
+
+
+
+#python ./generation.py >> data.sim
+
+
+
+
+
+
+
