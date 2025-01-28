@@ -7,3 +7,4 @@ Step 3: Copy the executable bash that is DDEC generated from Fortran to the Char
 Step 4: Place "job_control.txt" in Charge directory.  
 Step 5: Execute the bash, it will take a few minutes or so.  
 Step 6: DDEC6_even_tempered_net_atomic_charges.xyz is the file we want because it has not only partial charges calculated by DDEC but also cartesian coordinates.  
+Step 7: Change the name of the generated file from "DDEC6_even_tempered_net_atomic_charges.xyz" to "DDEC6.xyz"
