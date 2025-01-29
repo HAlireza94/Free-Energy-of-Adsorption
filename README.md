@@ -7,7 +7,8 @@ In this project, a variety of software and packages are being used:
 * Python  
 * Bash  
 * Packmol
-* VASP  
+* VASP
+* Visualizing using VESTA, VMD, and ASE package in Python
   
 Here you can see Rh(100) + Benzaldehyde + water  
   
