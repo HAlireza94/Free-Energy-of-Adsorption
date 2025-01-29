@@ -8,5 +8,5 @@ Here different system sizes are studied for metalic surface + water, we duplicat
 * Nx = 3 and Ny = 3
 
 
-using fdti script and block average with 3, we can get the following:  
+Using fdti script and block average with 3, we can get the following:  
 
