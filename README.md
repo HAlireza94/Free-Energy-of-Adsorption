@@ -6,7 +6,8 @@ In this project, a variety of software and packages are being used:
 * Open Babel  
 * Python  
 * Bash  
-* Packmol  
+* Packmol
+  
 Here you can see Rh(100) + Benzaldehyde + water  
   
 <img width="151" alt="Image" src="https://github.com/user-attachments/assets/9c43e481-8569-488d-9755-db5bf1eff614" />
