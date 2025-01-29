@@ -10,3 +10,4 @@ Here different system sizes are studied for metalic surface + water, we duplicat
 
 Using fdti script and block average with 3, we can get the following:  
 
+<img width="393" alt="Image" src="https://github.com/user-attachments/assets/4188612e-522d-419d-b1a1-591582e72b9c" />
