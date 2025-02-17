@@ -26,17 +26,18 @@ using namespace std;
 }
 
 int main(int argc, char* argv[]) {
-    if (argc != 4) {
-        cerr << "Usage: " << argv[0] << " <name> <T> <del_lammda>\n";
+    if (argc != 5) {
+        cerr << "Usage: " << argv[0] << " <name> <T> <del_lammda> <number of iternations>\n";
         return 1;
     }
 
     string name = argv[1];
     string T = argv[2];
     string del_lammda = argv[3];
+    string numIteration = argv[4];
 
     string commandF = "python fdti.py " + T + " " + del_lammda + " < " + name;
-    string commandE = "python error.py " + T + " < " + name;
+    string commandE = "python error.py " + T + " " + del_lammda + " " + numIteration + " < " + name;
 
     string F = execCommand(commandF);
     string e = execCommand(commandE);
