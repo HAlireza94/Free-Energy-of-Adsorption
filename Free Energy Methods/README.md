@@ -6,5 +6,5 @@ then ./fep "output from fep" "temperature" "del-lammda" "number of Iterations"
 
 
 
-
+      ![Image](https://github.com/user-attachments/assets/984b4dc4-7cff-419d-9686-b299a54f318a)
 
