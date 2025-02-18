@@ -4,5 +4,5 @@ After finishing the simulation, make an index.ndx file using gmx make_ndx -f con
 The output using ANAL.py for averaging over 1001 frames as below:  
 1001 frames have been processed  
 &theta; = 107.4163  
-<r_OH> = 0.9419  A  
-<d_OM> = 0.1472  A  
+r<sub>OH</sub> = 0.9419  &angestrom;  
+d<sub>OM</sub> = 0.1472  &angestrom;  
